@@ -56,14 +56,4 @@ export class CheckoutPage {
   async finishCheckout(): Promise<void> {
     await this.finishButton.click();
   }
-
-  /**
-   * Verifies that the checkout was completed successfully.
-   * Checks that the success header and message are visible.
-   */
-  async verifyCheckoutComplete(): Promise<void> {
-    await expect(this.completeHeader).toBeVisible();
-    await expect(this.completeText).toBeVisible();
-    await expect(this.completeHeader).toContainText('Thank you for your order!');
-  }
 }

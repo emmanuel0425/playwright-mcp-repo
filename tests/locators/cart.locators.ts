@@ -1,6 +1,6 @@
 export const cartLocators = {
   checkoutButton: '[data-test="checkout"]',
-  cartItem: '.cart_item',
-  cartItemName: '.inventory_item_name',
-  cartQuantity: '.cart_quantity',
+  cartItem: '[data-test="inventory-item"]',
+  cartItemName: '[data-test="inventory-item-name"]',
+  cartQuantity: '[data-test="item-quantity"]',
 };
