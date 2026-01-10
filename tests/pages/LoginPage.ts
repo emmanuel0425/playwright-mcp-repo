@@ -28,7 +28,7 @@ export class LoginPage {
    * Navigates to the login page.
    * Uses the base URL configured in Playwright config (defaults to root path).
    */
-  async goto() {
+  async goto(): Promise<void> {
     await this.page.goto("/");
   }
 
@@ -45,7 +45,7 @@ export class LoginPage {
   }
 
   /**
-   * Waits for the login page to be fully loaded by checking if the title element is visible.
+   * Waits for the main page to be fully loaded by checking if the title element is visible.
    * This method can be used to ensure the page is ready before performing actions.
    */
   async isLoaded(): Promise<void> {
