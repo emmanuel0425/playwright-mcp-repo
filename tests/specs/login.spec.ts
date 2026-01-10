@@ -8,6 +8,7 @@ test.describe('Login', () => {
     
     await loginPage.goto();
     await loginPage.login(credentials.username, credentials.password);
-    await loginPage.assertInventoryPage();
+    await loginPage.isLoaded();
+    await expect(page).toHaveURL(/.*\/inventory\.html/);
   });
 });
