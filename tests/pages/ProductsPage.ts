@@ -44,19 +44,4 @@ export class ProductsPage {
   async goToCart(): Promise<void> {
     await this.cartIcon.click();
   }
-
-  /**
-   * Gets the count displayed on the cart badge.
-   * Returns 0 if the badge is not visible.
-   *
-   * @returns The number of items in the cart according to the badge.
-   */
-  async getCartBadgeCount(): Promise<number> {
-    const badgeVisible = await this.cartBadge.isVisible().catch(() => false);
-    if (!badgeVisible) {
-      return 0;
-    }
-    const countText = await this.cartBadge.textContent();
-    return countText ? parseInt(countText, 10) : 0;
-  }
 }

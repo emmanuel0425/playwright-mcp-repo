@@ -1,13 +1,15 @@
-import { test, expect } from '@playwright/test';
-import { login } from '../helpers/auth';
-import { ProductsPage } from '../pages/ProductsPage';
-import { CartPage } from '../pages/CartPage';
-import { CheckoutPage } from '../pages/CheckoutPage';
-import credentials from '../data/credentials.json';
-import { generateRandomCheckoutInfo } from '../helpers/testData';
+import { test, expect } from "@playwright/test";
+import { login } from "../helpers/auth";
+import { ProductsPage } from "../pages/ProductsPage";
+import { CartPage } from "../pages/CartPage";
+import { CheckoutPage } from "../pages/CheckoutPage";
+import credentials from "../data/credentials.json";
+import { generateRandomCheckoutInfo } from "../helpers/testData";
 
-test.describe('Checkout Flow', () => {
-  test('should complete end-to-end checkout flow successfully', async ({ page }) => {
+test.describe("Checkout Flow", () => {
+  test("should complete end-to-end checkout flow successfully", async ({
+    page,
+  }) => {
     const productsPage = new ProductsPage(page);
     const cartPage = new CartPage(page);
     const checkoutPage = new CheckoutPage(page);
@@ -20,17 +22,24 @@ test.describe('Checkout Flow', () => {
     await productsPage.addFleeceJacketToCart();
 
     // Verify cart badge shows 2 items
-    const cartCount = await productsPage.getCartBadgeCount();
-    expect(cartCount).toBe(2);
+    await expect(productsPage.cartBadge).toHaveText("2");
 
     // Step 3: Go to cart and proceed to checkout
     await productsPage.goToCart();
     await expect(page).toHaveURL(/.*\/cart\.html/);
 
     // Verify both products are in cart before checkout
-    const expectedProducts = ['Sauce Labs Backpack', 'Sauce Labs Fleece Jacket'];
-    const productsInCart = await cartPage.verifyProductsInCart(expectedProducts);
-    expect(productsInCart).toBe(true);
+    const expectedProducts = [
+      "Sauce Labs Backpack",
+      "Sauce Labs Fleece Jacket",
+    ];
+
+    for (const productName of expectedProducts) {
+      await expect(
+        cartPage.cartProductsByName(productName),
+        `Expected product '${productName}' to be in cart`
+      ).toHaveCount(1);
+    }
 
     // Click checkout
     await cartPage.proceedToCheckout();
@@ -47,9 +56,12 @@ test.describe('Checkout Flow', () => {
     await expect(page).toHaveURL(/.*\/checkout-complete\.html/);
 
     // Step 6: Verify checkout completion
-    await expect(checkoutPage.completeHeader).toBeVisible();
-    await expect(checkoutPage.completeHeader).toHaveText('Thank you for your order!');
-    await expect(checkoutPage.completeText).toBeVisible();
-    await expect(checkoutPage.completeText).toHaveText('Your order has been dispatched, and will arrive just as fast as the pony can get there!');
+    await expect(checkoutPage.completeHeader).toHaveText(
+      "Thank you for your order!"
+    );
+   
+    await expect(checkoutPage.completeText).toHaveText(
+      "Your order has been dispatched, and will arrive just as fast as the pony can get there!"
+    );
   });
 });

@@ -28,6 +28,17 @@ export class CartPage {
   }
 
   /**
+   * Returns a locator for cart products by product name.
+   *
+   * @param productName - The product name.
+   * @returns A locator for cart products with the product name.
+   */
+
+  cartProductsByName(productName: string): Locator {
+    return this.cartItems.filter({hasText: productName});
+  }
+
+  /**
    * Gets the list of product names currently in the cart.
    *
    * @returns An array of product names in the cart.
