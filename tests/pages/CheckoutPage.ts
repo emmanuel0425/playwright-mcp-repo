@@ -1,4 +1,4 @@
-import { Locator, Page, expect } from '@playwright/test';
+import { Locator, Page } from '@playwright/test';
 import { checkoutLocators } from '../locators/checkout.locators';
 
 /**
@@ -37,7 +37,11 @@ export class CheckoutPage {
    * @param lastName - The last name to enter.
    * @param zipCode - The zip/postal code to enter.
    */
-  async fillCheckoutInformation(firstName: string, lastName: string, zipCode: string): Promise<void> {
+  async fillCheckoutInformation(
+    firstName: string,
+    lastName: string,
+    zipCode: string
+  ): Promise<void> {
     await this.firstNameInput.fill(firstName);
     await this.lastNameInput.fill(lastName);
     await this.zipCodeInput.fill(zipCode);

@@ -1,17 +1,17 @@
 import { faker } from '@faker-js/faker';
 
 /**
- * Interface representing checkout information.
+ * Type representing checkout information with first name, last name, and zip code.
  */
-export interface CheckoutInfo {
+export type CheckoutInfo = {
   firstName: string;
   lastName: string;
   zipCode: string;
-}
+};
 
 /**
  * Generates random checkout information using Faker.
- * 
+ *
  * @returns An object containing first name, last name, and zip code.
  */
 export function generateRandomCheckoutInfo(): CheckoutInfo {

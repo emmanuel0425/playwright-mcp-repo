@@ -35,39 +35,6 @@ export class CartPage {
    */
 
   cartProductsByName(productName: string): Locator {
-    return this.cartItems.filter({hasText: productName});
-  }
-
-  /**
-   * Gets the list of product names currently in the cart.
-   *
-   * @returns An array of product names in the cart.
-   */
-  async getCartItemNames(): Promise<string[]> {
-    const itemCount = await this.cartItems.count();
-    const itemNames: string[] = [];
-
-    for (let i = 0; i < itemCount; i++) {
-      const itemName = await this.cartItems
-        .nth(i)
-        .locator(cartLocators.cartItemName)
-        .textContent();
-      if (itemName) {
-        itemNames.push(itemName.trim());
-      }
-    }
-
-    return itemNames;
-  }
-
-  /**
-   * Verifies that specific products are present in the cart.
-   *
-   * @param expectedProducts - Array of product names that should be in the cart.
-   * @returns True if all expected products are found in the cart, false otherwise.
-   */
-  async verifyProductsInCart(expectedProducts: string[]): Promise<boolean> {
-    const cartItemNames = await this.getCartItemNames();
-    return expectedProducts.every((product) => cartItemNames.includes(product));
+    return this.cartItems.filter({ hasText: productName });
   }
 }

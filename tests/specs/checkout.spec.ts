@@ -1,13 +1,12 @@
-import { test, expect } from "@playwright/test";
-import { login } from "../helpers/auth";
-import { ProductsPage } from "../pages/ProductsPage";
-import { CartPage } from "../pages/CartPage";
-import { CheckoutPage } from "../pages/CheckoutPage";
-import credentials from "../data/credentials.json";
-import { generateRandomCheckoutInfo } from "../helpers/testData";
+import { expect, test } from '@playwright/test';
+import { login } from '../helpers/auth';
+import { generateRandomCheckoutInfo } from '../helpers/testData';
+import { CartPage } from '../pages/CartPage';
+import { CheckoutPage } from '../pages/CheckoutPage';
+import { ProductsPage } from '../pages/ProductsPage';
 
-test.describe("Checkout Flow", () => {
-  test("should complete end-to-end checkout flow successfully", async ({
+test.describe('Checkout flow', () => {
+  test('Should complete end-to-end checkout flow successfully', async ({
     page,
   }) => {
     const productsPage = new ProductsPage(page);
@@ -15,14 +14,14 @@ test.describe("Checkout Flow", () => {
     const checkoutPage = new CheckoutPage(page);
 
     // Step 1: Navigate to site and log in
-    await login(page, credentials.username, credentials.password);
+    await login(page);
 
     // Step 2: Add specific products to cart
     await productsPage.addBackpackToCart();
     await productsPage.addFleeceJacketToCart();
 
     // Verify cart badge shows 2 items
-    await expect(productsPage.cartBadge).toHaveText("2");
+    await expect(productsPage.cartBadge).toHaveText('2');
 
     // Step 3: Go to cart and proceed to checkout
     await productsPage.goToCart();
@@ -30,8 +29,8 @@ test.describe("Checkout Flow", () => {
 
     // Verify both products are in cart before checkout
     const expectedProducts = [
-      "Sauce Labs Backpack",
-      "Sauce Labs Fleece Jacket",
+      'Sauce Labs Backpack',
+      'Sauce Labs Fleece Jacket',
     ];
 
     for (const productName of expectedProducts) {
@@ -57,11 +56,10 @@ test.describe("Checkout Flow", () => {
 
     // Step 6: Verify checkout completion
     await expect(checkoutPage.completeHeader).toHaveText(
-      "Thank you for your order!"
+      'Thank you for your order!'
     );
-   
     await expect(checkoutPage.completeText).toHaveText(
-      "Your order has been dispatched, and will arrive just as fast as the pony can get there!"
+      'Your order has been dispatched, and will arrive just as fast as the pony can get there!'
     );
   });
 });
