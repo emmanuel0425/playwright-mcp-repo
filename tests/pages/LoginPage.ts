@@ -1,5 +1,5 @@
-import { Locator, Page } from "@playwright/test";
-import { loginLocators } from "../locators/login.locators";
+import { Locator, Page } from '@playwright/test';
+import { loginLocators } from '../locators/login.locators';
 
 /**
  * Page Object Model for the Login page.
@@ -29,7 +29,7 @@ export class LoginPage {
    * Uses the base URL configured in Playwright config (defaults to root path).
    */
   async goto(): Promise<void> {
-    await this.page.goto("/");
+    await this.page.goto('/');
   }
 
   /**

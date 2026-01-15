@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "CommonJS",
+    "lib": ["ESNext", "DOM"],
+    "strict": true,
+    "noEmit": true,
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "types": ["node", "@playwright/test"],
+    "baseUrl": "."
+  },
+  "include": ["tests"]
+}

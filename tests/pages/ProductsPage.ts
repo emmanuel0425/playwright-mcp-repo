@@ -19,7 +19,9 @@ export class ProductsPage {
    */
   constructor(private page: Page) {
     this.addToCartBackpack = page.locator(productsLocators.addToCartBackpack);
-    this.addToCartFleeceJacket = page.locator(productsLocators.addToCartFleeceJacket);
+    this.addToCartFleeceJacket = page.locator(
+      productsLocators.addToCartFleeceJacket
+    );
     this.cartIcon = page.locator(productsLocators.cartIcon);
     this.cartBadge = page.locator(productsLocators.cartBadge);
   }
