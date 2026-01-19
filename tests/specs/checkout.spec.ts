@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { login } from '../helpers/auth';
-import { generateRandomCheckoutInfo } from '../helpers/testData';
+import { generateRandomCheckoutInfo } from '../utils/checkoutData';
 import { CartPage } from '../pages/CartPage';
 import { CheckoutPage } from '../pages/CheckoutPage';
 import { ProductsPage } from '../pages/ProductsPage';

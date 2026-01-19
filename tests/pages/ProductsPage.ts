@@ -17,7 +17,7 @@ export class ProductsPage {
    *
    * @param page - The Playwright Page instance to interact with.
    */
-  constructor(private page: Page) {
+  constructor(private readonly page: Page) {
     this.addToCartBackpack = page.locator(productsLocators.addToCartBackpack);
     this.addToCartFleeceJacket = page.locator(
       productsLocators.addToCartFleeceJacket

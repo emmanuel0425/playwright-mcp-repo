@@ -15,7 +15,7 @@ export class CartPage {
    *
    * @param page - The Playwright Page instance to interact with.
    */
-  constructor(private page: Page) {
+  constructor(private readonly page: Page) {
     this.checkoutButton = page.locator(cartLocators.checkoutButton);
     this.cartItems = page.locator(cartLocators.cartItem);
   }
