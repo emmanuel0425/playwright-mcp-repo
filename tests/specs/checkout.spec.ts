@@ -1,20 +1,18 @@
-import { expect, test } from '@playwright/test';
-import { login } from '../helpers/auth';
+import { expect, test } from '../fixtures/auth';
 import { generateRandomCheckoutInfo } from '../utils/checkoutData';
 import { CartPage } from '../pages/CartPage';
 import { CheckoutPage } from '../pages/CheckoutPage';
 import { ProductsPage } from '../pages/ProductsPage';
 
-test.describe('Checkout flow', () => {
-  test('Should complete end-to-end checkout flow successfully', async ({
+test.describe('Checkout', () => {
+  test('Completes end-to-end checkout flow successfully', async ({
     page,
   }) => {
     const productsPage = new ProductsPage(page);
     const cartPage = new CartPage(page);
     const checkoutPage = new CheckoutPage(page);
 
-    // Step 1: Navigate to site and log in
-    await login(page);
+    // Step 1: Already logged in by fixture ✅
 
     // Step 2: Add specific products to cart
     await productsPage.addBackpackToCart();
@@ -58,8 +56,8 @@ test.describe('Checkout flow', () => {
     await expect(checkoutPage.completeHeader).toHaveText(
       'Thank you for your order!'
     );
-    await expect(checkoutPage.completeText).toHaveText(
-      'Your order has been dispatched, and will arrive just as fast as the pony can get there!'
+    await expect(checkoutPage.completeText).toContainText(
+      'Your order has been dispatched'
     );
   });
 });

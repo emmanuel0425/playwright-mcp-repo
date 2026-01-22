@@ -1,15 +1,55 @@
-import { test, expect } from '@playwright/test';
-import { LoginPage } from '../pages/LoginPage';
+import { test } from '../fixtures/login';
+
+const username = process.env.USERNAME ?? '';
+const password = process.env.PASSWORD ?? '';
 
 test.describe('Login', () => {
-  test('Should login successfully and navigate to inventory page', async ({
-    page,
+  test('Logs in successfully and navigate to inventory page', async ({
+    loginPage,
   }) => {
-    const loginPage = new LoginPage(page);
+    await loginPage.login(username, password);
+    await loginPage.assertLoaded();
+  });
 
-    await loginPage.goto();
-    await loginPage.login(process.env.USERNAME!, process.env.PASSWORD!);
-    await loginPage.isLoaded();
-    await expect(page).toHaveURL(/.*\/inventory\.html/);
+  test('Fails login with invalid credentials', async ({
+    loginPage,
+  }) => {
+    await loginPage.login('invalid', 'invalid');
+    await loginPage.expectInvalidCredentialsError();
+  });
+
+  test('Fails login with invalid username', async ({
+    loginPage,
+  }) => {
+    await loginPage.login('invalid', password);
+    await loginPage.expectInvalidCredentialsError();
+  });
+
+  test('Fails login with invalid password', async ({
+    loginPage,
+  }) => {
+    await loginPage.login(username, 'invalid');
+    await loginPage.expectInvalidCredentialsError();
+  });
+
+  test('Fails login with empty credentials', async ({
+    loginPage,
+  }) => {
+    await loginPage.submit();
+    await loginPage.expectUsernameRequiredError();
+  });
+
+  test('Fails login with empty username', async ({
+    loginPage,
+  }) => {
+    await loginPage.login('', password);
+    await loginPage.expectUsernameRequiredError();
+  });
+
+  test('Fails login with empty password', async ({
+    loginPage,
+  }) => {
+    await loginPage.login(username, '');
+    await loginPage.expectPasswordRequiredError();
   });
 });

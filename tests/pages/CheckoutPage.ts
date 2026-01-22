@@ -21,13 +21,13 @@ export class CheckoutPage {
    * @param page - The Playwright Page instance to interact with.
    */
   constructor(private readonly page: Page) {
-    this.firstNameInput = page.locator(checkoutLocators.firstNameInput);
-    this.lastNameInput = page.locator(checkoutLocators.lastNameInput);
-    this.zipCodeInput = page.locator(checkoutLocators.zipCodeInput);
-    this.continueButton = page.locator(checkoutLocators.continueButton);
-    this.finishButton = page.locator(checkoutLocators.finishButton);
-    this.completeHeader = page.locator(checkoutLocators.completeHeader);
-    this.completeText = page.locator(checkoutLocators.completeText);
+    this.firstNameInput = page.getByTestId(checkoutLocators.firstNameInput);
+    this.lastNameInput = page.getByTestId(checkoutLocators.lastNameInput);
+    this.zipCodeInput = page.getByTestId(checkoutLocators.zipCodeInput);
+    this.continueButton = page.getByTestId(checkoutLocators.continueButton);
+    this.finishButton = page.getByTestId(checkoutLocators.finishButton);
+    this.completeHeader = page.getByTestId(checkoutLocators.completeHeader);
+    this.completeText = page.getByTestId(checkoutLocators.completeText);
   }
 
   /**

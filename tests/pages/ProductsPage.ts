@@ -18,12 +18,12 @@ export class ProductsPage {
    * @param page - The Playwright Page instance to interact with.
    */
   constructor(private readonly page: Page) {
-    this.addToCartBackpack = page.locator(productsLocators.addToCartBackpack);
-    this.addToCartFleeceJacket = page.locator(
+    this.addToCartBackpack = page.getByTestId(productsLocators.addToCartBackpack);
+    this.addToCartFleeceJacket = page.getByTestId(
       productsLocators.addToCartFleeceJacket
     );
-    this.cartIcon = page.locator(productsLocators.cartIcon);
-    this.cartBadge = page.locator(productsLocators.cartBadge);
+    this.cartIcon = page.getByTestId(productsLocators.cartIcon);
+    this.cartBadge = page.getByTestId(productsLocators.cartBadge);
   }
 
   /**

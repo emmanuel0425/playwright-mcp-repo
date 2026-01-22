@@ -1,8 +1,8 @@
 export const productsLocators = {
-  addToCartBackpack: '[data-test="add-to-cart-sauce-labs-backpack"]',
-  addToCartFleeceJacket: '[data-test="add-to-cart-sauce-labs-fleece-jacket"]',
-  cartIcon: '[data-test="shopping-cart-link"]',
-  cartBadge: '[data-test="shopping-cart-badge"]',
-  productName: '[data-test="inventory-item-name"]',
-  productContainer: '[data-test="inventory-item"]',
+  addToCartBackpack: 'add-to-cart-sauce-labs-backpack',
+  addToCartFleeceJacket: 'add-to-cart-sauce-labs-fleece-jacket',
+  cartIcon: 'shopping-cart-link',
+  cartBadge: 'shopping-cart-badge',
+  productName: 'inventory-item-name',
+  productContainer: 'inventory-item',
 };
