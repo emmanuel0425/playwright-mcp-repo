@@ -1,63 +1,83 @@
-import { expect, test } from '../fixtures/auth';
-import { generateRandomCheckoutInfo } from '../utils/checkoutData';
-import { CartPage } from '../pages/CartPage';
-import { CheckoutPage } from '../pages/CheckoutPage';
-import { ProductsPage } from '../pages/ProductsPage';
+import { test } from '../fixtures';
+
+const oneProduct = ['Sauce Labs Backpack'];
+const twoProducts = ['Sauce Labs Backpack', 'Sauce Labs Fleece Jacket'];
+const threeProducts = [
+  'Sauce Labs Backpack',
+  'Sauce Labs Fleece Jacket',
+  'Sauce Labs Bike Light',
+];
+const fourProducts = [
+  'Sauce Labs Backpack',
+  'Sauce Labs Fleece Jacket',
+  'Sauce Labs Bike Light',
+  'Sauce Labs Bolt T-Shirt',
+];
 
 test.describe('Checkout', () => {
-  test('Completes end-to-end checkout flow successfully', async ({
-    page,
+  test('Completes end-to-end checkout flow successfully for 1 product', async ({
+    checkoutFlow,
   }) => {
-    const productsPage = new ProductsPage(page);
-    const cartPage = new CartPage(page);
-    const checkoutPage = new CheckoutPage(page);
+    // Add products and assert badge count
+    await checkoutFlow.addProductsAndAssertBadge([
+      () => checkoutFlow.productsPage.addBackpackToCart(),
+    ]);
 
-    // Step 1: Already logged in by fixture ✅
+    // Go to cart and assert items listed in the cart
+    await checkoutFlow.goToCartAndAssertItems(oneProduct);
 
-    // Step 2: Add specific products to cart
-    await productsPage.addBackpackToCart();
-    await productsPage.addFleeceJacketToCart();
+    // Complete checkout
+    await checkoutFlow.completeCheckout();
+  });
 
-    // Verify cart badge shows 2 items
-    await expect(productsPage.cartBadge).toHaveText('2');
+  test('Completes end-to-end checkout flow successfully for 2 products', async ({
+    checkoutFlow,
+  }) => {
+    // Add products and assert badge count
+    await checkoutFlow.addProductsAndAssertBadge([
+      () => checkoutFlow.productsPage.addBackpackToCart(),
+      () => checkoutFlow.productsPage.addFleeceJacketToCart(),
+    ]);
 
-    // Step 3: Go to cart and proceed to checkout
-    await productsPage.goToCart();
-    await expect(page).toHaveURL(/.*\/cart\.html/);
+    // Go to cart and assert items listed in the cart
+    await checkoutFlow.goToCartAndAssertItems(twoProducts);
 
-    // Verify both products are in cart before checkout
-    const expectedProducts = [
-      'Sauce Labs Backpack',
-      'Sauce Labs Fleece Jacket',
-    ];
+    // Complete checkout
+    await checkoutFlow.completeCheckout();
+  });
 
-    for (const productName of expectedProducts) {
-      await expect(
-        cartPage.cartProductsByName(productName),
-        `Expected product '${productName}' to be in cart`
-      ).toHaveCount(1);
-    }
+  test('Completes end-to-end checkout flow successfully for 3 products', async ({
+    checkoutFlow,
+  }) => {
+    // Add products and assert badge count
+    await checkoutFlow.addProductsAndAssertBadge([
+      () => checkoutFlow.productsPage.addBackpackToCart(),
+      () => checkoutFlow.productsPage.addFleeceJacketToCart(),
+      () => checkoutFlow.productsPage.addBikeLightToCart(),
+    ]);
 
-    // Click checkout
-    await cartPage.proceedToCheckout();
-    await expect(page).toHaveURL(/.*\/checkout-step-one\.html/);
+    // Go to cart and assert items listed in the cart
+    await checkoutFlow.goToCartAndAssertItems(threeProducts);
 
-    // Step 4: Fill checkout information with random data
-    const { firstName, lastName, zipCode } = generateRandomCheckoutInfo();
-    await checkoutPage.fillCheckoutInformation(firstName, lastName, zipCode);
-    await checkoutPage.continueToOverview();
-    await expect(page).toHaveURL(/.*\/checkout-step-two\.html/);
+    // Complete checkout
+    await checkoutFlow.completeCheckout();
+  });
 
-    // Step 5: Complete checkout
-    await checkoutPage.finishCheckout();
-    await expect(page).toHaveURL(/.*\/checkout-complete\.html/);
+  test('Completes end-to-end checkout flow successfully for 4 products', async ({
+    checkoutFlow,
+  }) => {
+    // Add products and assert badge count
+    await checkoutFlow.addProductsAndAssertBadge([
+      () => checkoutFlow.productsPage.addBackpackToCart(),
+      () => checkoutFlow.productsPage.addFleeceJacketToCart(),
+      () => checkoutFlow.productsPage.addBikeLightToCart(),
+      () => checkoutFlow.productsPage.addBoltTShirtToCart(),
+    ]);
 
-    // Step 6: Verify checkout completion
-    await expect(checkoutPage.completeHeader).toHaveText(
-      'Thank you for your order!'
-    );
-    await expect(checkoutPage.completeText).toContainText(
-      'Your order has been dispatched'
-    );
+    // Go to cart and assert items listed in the cart
+    await checkoutFlow.goToCartAndAssertItems(fourProducts);
+
+    // Complete checkout
+    await checkoutFlow.completeCheckout();
   });
 });

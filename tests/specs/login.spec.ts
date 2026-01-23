@@ -11,44 +11,32 @@ test.describe('Login', () => {
     await loginPage.assertLoaded();
   });
 
-  test('Fails login with invalid credentials', async ({
-    loginPage,
-  }) => {
+  test('Fails login with invalid credentials', async ({ loginPage }) => {
     await loginPage.login('invalid', 'invalid');
     await loginPage.expectInvalidCredentialsError();
   });
 
-  test('Fails login with invalid username', async ({
-    loginPage,
-  }) => {
+  test('Fails login with invalid username', async ({ loginPage }) => {
     await loginPage.login('invalid', password);
     await loginPage.expectInvalidCredentialsError();
   });
 
-  test('Fails login with invalid password', async ({
-    loginPage,
-  }) => {
+  test('Fails login with invalid password', async ({ loginPage }) => {
     await loginPage.login(username, 'invalid');
     await loginPage.expectInvalidCredentialsError();
   });
 
-  test('Fails login with empty credentials', async ({
-    loginPage,
-  }) => {
+  test('Fails login with empty credentials', async ({ loginPage }) => {
     await loginPage.submit();
     await loginPage.expectUsernameRequiredError();
   });
 
-  test('Fails login with empty username', async ({
-    loginPage,
-  }) => {
+  test('Fails login with empty username', async ({ loginPage }) => {
     await loginPage.login('', password);
     await loginPage.expectUsernameRequiredError();
   });
 
-  test('Fails login with empty password', async ({
-    loginPage,
-  }) => {
+  test('Fails login with empty password', async ({ loginPage }) => {
     await loginPage.login(username, '');
     await loginPage.expectPasswordRequiredError();
   });

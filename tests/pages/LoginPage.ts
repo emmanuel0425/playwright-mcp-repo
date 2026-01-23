@@ -59,7 +59,9 @@ export class LoginPage {
    */
   async expectInvalidCredentialsError(): Promise<void> {
     await expect(this.errorMessage).toBeVisible();
-    await expect(this.errorMessage).toHaveText('Epic sadface: Username and password do not match any user in this service');
+    await expect(this.errorMessage).toHaveText(
+      'Epic sadface: Username and password do not match any user in this service',
+    );
   }
 
   /**
@@ -74,7 +76,9 @@ export class LoginPage {
    */
   async expectUsernameRequiredError(): Promise<void> {
     await expect(this.errorMessage).toBeVisible();
-    await expect(this.errorMessage).toHaveText('Epic sadface: Username is required');
+    await expect(this.errorMessage).toHaveText(
+      'Epic sadface: Username is required',
+    );
   }
 
   /**
@@ -82,6 +86,8 @@ export class LoginPage {
    */
   async expectPasswordRequiredError(): Promise<void> {
     await expect(this.errorMessage).toBeVisible();
-    await expect(this.errorMessage).toHaveText('Epic sadface: Password is required');
+    await expect(this.errorMessage).toHaveText(
+      'Epic sadface: Password is required',
+    );
   }
 }

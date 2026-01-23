@@ -40,7 +40,7 @@ export class CheckoutPage {
   async fillCheckoutInformation(
     firstName: string,
     lastName: string,
-    zipCode: string
+    zipCode: string,
   ): Promise<void> {
     await this.firstNameInput.fill(firstName);
     await this.lastNameInput.fill(lastName);
