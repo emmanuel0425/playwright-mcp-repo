@@ -13,7 +13,7 @@ export class CheckoutPage {
   readonly finishButton: Locator;
   readonly completeHeader: Locator;
   readonly completeText: Locator;
-
+  readonly backToProductsButton: Locator;
   /**
    * Initializes a new instance of the CheckoutPage class.
    * Sets up locators for checkout form fields and buttons.
@@ -28,6 +28,9 @@ export class CheckoutPage {
     this.finishButton = page.getByTestId(checkoutLocators.finishButton);
     this.completeHeader = page.getByTestId(checkoutLocators.completeHeader);
     this.completeText = page.getByTestId(checkoutLocators.completeText);
+    this.backToProductsButton = page.getByTestId(
+      checkoutLocators.backToProductsButton,
+    );
   }
 
   /**
@@ -59,5 +62,12 @@ export class CheckoutPage {
    */
   async finishCheckout(): Promise<void> {
     await this.finishButton.click();
+  }
+
+  /**
+   * Clicks the back to products button to return to the products page.
+   */
+  async backToProducts(): Promise<void> {
+    await this.backToProductsButton.click();
   }
 }

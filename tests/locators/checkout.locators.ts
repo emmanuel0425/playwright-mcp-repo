@@ -6,4 +6,5 @@ export const checkoutLocators = {
   finishButton: 'finish',
   completeHeader: 'complete-header',
   completeText: 'complete-text',
+  backToProductsButton: 'back-to-products',
 };
